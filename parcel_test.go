@@ -45,14 +45,10 @@ func TestAddGetDelete(t *testing.T) {
 
 	parcelNew, err := store.Get(id)
 	require.NoError(t, err, "fail select parcel")
-	assert.Equal(t, parcel.Client, parcelNew.Client,
-		fmt.Sprintf("Expected %d received  %d", parcel.Client, parcelNew.Client))
-	assert.Equal(t, parcel.Status, parcelNew.Status,
-		fmt.Sprintf("Expected %s received  %s", parcel.Status, parcelNew.Status))
-	assert.Equal(t, parcel.Address, parcelNew.Address,
-		fmt.Sprintf("Expected %s received  %s", parcel.Address, parcelNew.Address))
-	assert.Equal(t, parcel.CreatedAt, parcelNew.CreatedAt,
-		fmt.Sprintf("Expected %s received  %s", parcel.CreatedAt, parcelNew.CreatedAt))
+
+	parcel.Number, parcelNew.Number = 0, 0
+	assert.Equal(t, parcel, parcelNew,
+		fmt.Sprintf("Expected %v received  %v", parcel, parcelNew))
 
 	err = store.Delete(id)
 	require.NoError(t, err, "fail delete from table")
